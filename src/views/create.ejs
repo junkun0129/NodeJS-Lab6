@@ -1,0 +1,58 @@
+<%- include('./partials/_head.ejs') %>
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-medium mb-4">New Recipe</h1>
+        <form action="/recipes/save" method="POST">
+            <div class="mb-4">
+                <label class="block font-medium text-sm mb-2" for="name">Name:</label>
+                <input class="border border-gray-400 p-2 rounded-lg w-full" type="text" name="name" id="name" required>
+            </div>
+            <div class="mb-4">
+                <label class="block font-medium text-sm mb-2" for="ingredients">Ingredients:</label>
+                <div class="ingredient-group">
+                    <div class="mb-2">
+                        <input type="text" class="border border-gray-400 p-2 rounded-lg w-1/2 mr-2" placeholder="Ingredient" name="ingredients">
+                        <input type="text" class="border border-gray-400 p-2 rounded-lg w-1/2" placeholder="Quantity" name="quantity">
+                    </div>
+                </div>
+                <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg" onclick="addIngredient()">Add Ingredient</button>
+            </div>
+            <div class="mb-4">
+                <label class="block font-medium text-sm mb-2">Instructions:</label>
+                <div class="instruction-group">
+                    <div class="mb-2">
+                        <input class="border border-gray-400 p-2 rounded-lg w-full" type="text" name="instructions" required>
+                    </div>
+                </div>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg" type="button" onclick="addInstruction()">Add Instruction</button>
+            </div>
+            <div class="text-center">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addIngredient() {
+            let ingredientGroup = document.querySelector('.ingredient-group');
+            let newIngredient = document.createElement('div');
+            newIngredient.innerHTML = `
+                <div class="mb-2">
+                    <input type="text" class="border border-gray-400 p-2 rounded-lg w-1/2 mr-2" placeholder="Ingredient" name="ingredients">
+                    <input type="text" class="border border-gray-400 p-2 rounded-lg w-1/2" placeholder="Quantity" name="quantity">
+                </div>
+            `;
+            ingredientGroup.appendChild(newIngredient);
+        }
+
+        function addInstruction() {
+            const instructionGroup = document.querySelector('.instruction-group');
+            const newInstruction = document.createElement('div');
+            newInstruction.innerHTML = `
+                <div class="mb-2">
+                    <input class="border border-gray-400 p-2 rounded-lg w-full" type="text" name="instructions" required>
+                </div>
+            `;
+            instructionGroup.appendChild(newInstruction);
+        }
+    </script>
+<%- include('./partials/_end.ejs') %>

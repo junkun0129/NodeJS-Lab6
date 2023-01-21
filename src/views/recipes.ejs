@@ -1,0 +1,80 @@
+<%- include('./partials/_head.ejs') %>
+    <div class="max-w-screen-xl mx-auto px-5 bg-white h-100">
+      <div class="flex flex-col items-center">
+        <h2 class="font-bold text-5xl mt-5 tracking-tight">Recipes</h2>
+        <p class="text-neutral-500 text-xl mt-3">List</p>
+        <p>
+          <a
+            href="/recipes/create"
+            class="w-full block bg-green-500 hover:bg-green-400 focus:bg-green-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+          >
+            Add new recipe
+          </a>
+        </p>
+      </div>
+      <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+        <% recipes.forEach((recipe, index) => { %>
+        <div class="py-5">
+          <details class="group">
+            <summary
+              class="flex justify-between items-center font-medium cursor-pointer list-none"
+            >
+              <span><%= recipe.Name %></span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div class="text-neutral-600 mt-3 group-open:animate-fadeIn">
+              <p class="p-3 text-gray-900">Ingredients:</p>
+              <ol class="p-3">
+                <% recipe.Ingredients.forEach(ingredient => { %>
+                <li class="text-xs font-light mb-1">
+                  <span class="font-bold"><%= ingredient.name %></span> - <%=
+                  ingredient.quantity %>
+                </li>
+                <% }); %>
+              </ol>
+              <p class="p-3 text-gray-900">Instructions:</p>
+              <ol class="p-3">
+                <% recipe.Instructions.forEach(instruction => { %>
+                <li class="text-xs font-light mb-1"><%= instruction %></li>
+                <% }); %>
+              </ol>
+            </div>
+
+            <!-- buttons -->
+            <div class="w-full flex">
+              <a
+                href="/recipes/<%= recipe.Id %>/edit"
+                class="inline-block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white text-center font-semibold rounded-lg px-4 py-3 mt-6 mr-3"
+              >
+                Edit
+              </a>
+  
+              <form action="/recipes/delete/<%= recipe.Id %>?_method=DELETE" method="POST">
+                <button
+                  type="submit"
+                  class="inline-block bg-red-500 hover:bg-red-400 focus:bg-red-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </details>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+<%- include('./partials/_end.ejs') %>
