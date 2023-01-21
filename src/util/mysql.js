@@ -1,11 +1,11 @@
 const mysql = require("mysql2");
 
 const pool = mysql.createPool({
-    host: "containers-us-west-112.railway.app",
-    user: "root",
-    password: "9XvuEtuDWTLHYPWI6pxJ",
-    database: "railway",
-    port: 6545
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DBNAME,
+    port:  process.env.MYSQL_PORT
 })
 
 const sql = `SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='railway' AND TABLE_NAME='Recipes'`;
